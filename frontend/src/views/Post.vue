@@ -53,21 +53,34 @@ export default {
   },
   methods: {
     async post(evt) {
-      evt.preventDefault();
+      try {
+        evt.preventDefault();
       const { title, content, file } = this.form;
-      alert(JSON.stringify(this.form));
+
       // console.log(this.form.file);
+      // userId 
       const formData = new FormData();
+      formData.append("userId", sessionStorage.getItem("id"));
       formData.append("title", title);
       formData.append("content", content);
       formData.append("file", file);
       console.log(file);
 
-      await axios.post("http://localhost:8000/api/post", formData, {
+      const {status} = await axios.post("http://localhost:8000/api/post", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
+      console.log(status);
+      if(status === 200){
+        alert("게시글 작성이 완료되었습니다");
+        this.$router.push("/");
+      }
+
+      } catch (error) {
+        alert("오류가 발생하였습니다.");
+        this.$router.push("/");
+      }
     },
   },
 };

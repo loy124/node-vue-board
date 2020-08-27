@@ -58,7 +58,7 @@ export default {
                   sessionStorage.setItem("id", data.id);
                 //   this.$store.state.loginData = data.id;
                 this.$store.commit("SET_LOGIN_DATA",data.id);
-                  this.$router.push("/Main");
+                  this.$router.push("/");
               }
           }else {
               alert("아이디 및 비밀번호를 입력해주세요");

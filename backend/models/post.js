@@ -8,7 +8,7 @@ module.exports = class Post extends Sequelize.Model {
         title: {
           type: Sequelize.STRING(200),
           allowNull: false,
-          unique: true,
+          // unique: true,
         },
         // 내용
         content: {

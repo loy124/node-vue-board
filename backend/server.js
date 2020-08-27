@@ -6,20 +6,21 @@ const { sequelize, User, Post } = require("./models");
 const { hashPassword, comparePassword } = require("./utils/bcrypt");
 const cors = require("cors");
 const multer = require("multer");
-const path = require("path")
+const path = require("path");
+const fs = require("fs").promises;
 
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-
 app.use(
-    cors({
-      origin: true,
-      credentials: true, //도메인이 다른경우 서로 쿠키등을 주고받을때 허용해준다고 한다
-    })
-  );
-  
+  cors({
+    origin: true,
+    credentials: true, //도메인이 다른경우 서로 쿠키등을 주고받을때 허용해준다고 한다
+    
+  })
+);
+
 const upload = multer({
   storage: multer.diskStorage({
     // set a localstorage destination
@@ -33,13 +34,15 @@ const upload = multer({
     // convert a file name
     filename: (req, file, done) => {
       const ext = path.extname(file.originalname);
-      done(null, path.basename(file.originalname, ext)+"&&"+ Date.now() + ext);
+      const fileName =
+        path.basename(file.originalname, ext) + "&&" + Date.now() + ext;
+      done(null, fileName);
       // cb(null, new Date().valueOf() + path.extname(file.originalname));
+      req.fileDir = `${fileName}`;
     },
   }),
   limits: { fileSize: 5 * 1024 * 1024 },
-})
-
+});
 
 // 1차 테이블 생성하기
 sequelize
@@ -47,7 +50,7 @@ sequelize
   .then(() => console.log("db 접속 성공"))
   .catch((err) => console.log(err));
 
-app.get("/api/user", (req, res) => {});
+app.get("/api/user", async (req, res) => {});
 
 app.post("/api/user", async (req, res) => {
   //  CRUD 구현을 해야한다.
@@ -100,22 +103,52 @@ app.post("/api/login", async (req, res) => {
 });
 
 // 게시판 부분
-app.get("/api/post", (req, res) => {
-  // DB 테이블 생성하기
+app.get("/api/post", async (req, res) => {
+  try {
+    const postList = await Post.findAll({});
+    console.log(postList);
+    return res.json({ postList });
+  } catch (error) {
+    console.log(error);
+  }
 });
 
-app.post("/api/post", upload.single("file"), (req, res) => {
+app.post("/api/post", upload.single("file"), async (req, res) => {
   //  CRUD 구현을 해야한다.
   try {
-    console.log(req.body);  
+    console.log(req.body);
+    // 파일의 저장 경로
+    const { userId, title, content } = req.body;
+    console.log(req.fileDir);
+    // 남은건 DB 연동하기
+    const post = await Post.create({
+      title: title,
+      content: content,
+      file: req.fileDir,
+      user_id: userId,
+    });
+    console.log(post);
+    return res.json({ hello: "hello" });
   } catch (error) {
-    
+    console.log(error);
   }
-  
 });
 
 app.patch("/api/post", (req, res) => {});
 
 app.delete("/api/post", (req, res) => {});
+
+app.get("/api/download",  async (req, res) => {
+  try {
+    console.log(req.body);
+    const { fileName } = req.query;
+    console.log(fileName);
+    const file = await fs.readFile(`uploads/${fileName}`);
+    console.log(file);
+    // return res
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 app.listen(PORT, () => console.log(`this server listening on ${PORT}`));

@@ -5,8 +5,8 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item href="#">Link</b-nav-item>
-          <b-nav-item href="#" disabled>Disabled</b-nav-item>
+          <b-nav-item v-if="isLoggedIn" href="/post">글쓰기 </b-nav-item>
+          
         </b-navbar-nav>
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
@@ -16,8 +16,7 @@
               <em>User</em>
             </template>
             <div v-if="isLoggedIn">
-              <b-dropdown-item href="#">Profile</b-dropdown-item>
-              <b-dropdown-item href="">Sign Out</b-dropdown-item>
+              <b-dropdown-item @click="logout">Logout</b-dropdown-item>
             </div>
             <div v-else>
               <b-dropdown-item href="/login">Login</b-dropdown-item>
@@ -36,16 +35,30 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    logout(){
+      sessionStorage.removeItem("id");
+       this.$store.commit("SET_LOGIN_DATA","");
+       this.$router.push("/login");
+    }
+  },
   computed: {
     isLoggedIn() {
       return this.$store.state.loginData;
     },
     // ...mapState(['loginData'])
   },
+  mounted(){
+    console.log(this.$route);
+    if(!this.$store.state.loginData && this.$route.path !== "/login" && this.$route.path !== "/signup"){
+      alert("로그인이 필요한 페이지입니다. 로그인 페이지로 이동합니다.");
+      this.$router.push("/login");
+    }
+  }
 };
 </script>
 <style>
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
