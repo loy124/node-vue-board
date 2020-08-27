@@ -1,6 +1,6 @@
 <template>
   <div>
-     <b-form @submit.prevent="SignUp" class="w-50 ml-auto mr-auto mt-5">
+     <b-form @submit.prevent="login" class="w-50 ml-auto mr-auto mt-5">
       <b-form-group
         id="input-group-1"
         label="아이디(이메일)"
@@ -28,13 +28,14 @@
 
       <div class="mt-5">
         <b-button class="w-100" type="submit" variant="primary">로그인</b-button>
-        <b-button class="w-100 mt-3" type="button" variant="success">회원가입</b-button>
+        <b-button href="/signup" class="w-100 mt-3" type="button" variant="success">회원가입</b-button>
       </div>
     </b-form>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
  data() {
     return {
@@ -45,6 +46,25 @@ export default {
       },
     };
   },
+  methods:{
+      async login(){
+          const {email, password} = this.form;
+          if(email && password){
+              const {data} = await axios.post("http://localhost:8000/api/login",{
+                  email,password
+              });
+              console.log(data);
+              if(data.login){
+                  sessionStorage.setItem("id", data.id);
+                //   this.$store.state.loginData = data.id;
+                this.$store.commit("SET_LOGIN_DATA",data.id);
+                  this.$router.push("/Main");
+              }
+          }else {
+              alert("아이디 및 비밀번호를 입력해주세요");
+          }
+      }
+  }
 }
 </script>
 

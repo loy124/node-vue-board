@@ -5,6 +5,8 @@ const PORT = 8000;
 const { sequelize, User, Post } = require("./models");
 const { hashPassword, comparePassword } = require("./utils/bcrypt");
 const cors = require("cors");
+const multer = require("multer");
+const path = require("path")
 
 app.use(morgan("dev"));
 app.use(express.json());
@@ -18,6 +20,25 @@ app.use(
     })
   );
   
+const upload = multer({
+  storage: multer.diskStorage({
+    // set a localstorage destination
+    //   어떤이름으로 저장할지가 들어있다.
+
+    //위치 지정
+    destination: (req, file, done) => {
+      done(null, "uploads/");
+    },
+    //지정
+    // convert a file name
+    filename: (req, file, done) => {
+      const ext = path.extname(file.originalname);
+      done(null, path.basename(file.originalname, ext)+"&&"+ Date.now() + ext);
+      // cb(null, new Date().valueOf() + path.extname(file.originalname));
+    },
+  }),
+  limits: { fileSize: 5 * 1024 * 1024 },
+})
 
 
 // 1차 테이블 생성하기
@@ -83,8 +104,14 @@ app.get("/api/post", (req, res) => {
   // DB 테이블 생성하기
 });
 
-app.post("/api/post", (req, res) => {
+app.post("/api/post", upload.single("file"), (req, res) => {
   //  CRUD 구현을 해야한다.
+  try {
+    console.log(req.body);  
+  } catch (error) {
+    
+  }
+  
 });
 
 app.patch("/api/post", (req, res) => {});

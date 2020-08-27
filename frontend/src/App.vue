@@ -15,10 +15,14 @@
             <template v-slot:button-content>
               <em>User</em>
             </template>
-            <b-dropdown-item href="/login">Login</b-dropdown-item>
-            <b-dropdown-item href="/signup">Sign Up</b-dropdown-item>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="">Sign Out</b-dropdown-item>
+            <div v-if="isLoggedIn">
+              <b-dropdown-item href="#">Profile</b-dropdown-item>
+              <b-dropdown-item href="">Sign Out</b-dropdown-item>
+            </div>
+            <div v-else>
+              <b-dropdown-item href="/login">Login</b-dropdown-item>
+              <b-dropdown-item href="/signup">Sign Up</b-dropdown-item>
+            </div>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -26,7 +30,21 @@
     <router-view />
   </div>
 </template>
-
+<script>
+import axios from "axios";
+export default {
+  data() {
+    return {};
+  },
+  methods: {},
+  computed: {
+    isLoggedIn() {
+      return this.$store.state.loginData;
+    },
+    // ...mapState(['loginData'])
+  },
+};
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

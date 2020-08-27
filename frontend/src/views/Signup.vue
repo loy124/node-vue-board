@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-form @submit.prevent="SignUp" class="w-50 ml-auto mr-auto mt-5">
+    <b-form @submit.prevent="signUp" class="w-50 ml-auto mr-auto mt-5">
       <b-form-group
         id="input-group-1"
         label="아이디(이메일)"
@@ -57,7 +57,7 @@ export default {
   },
 
   methods: {
-    async SignUp() {
+    async signUp() {
       const { email, password, name } = this.form;
       if (email && password && name) {
         try {
