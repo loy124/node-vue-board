@@ -76,48 +76,35 @@ export default {
       console.log(file);
       // const formData = new FormData();
       // formData.append("fileName", file)
-      const res = await axios.get(
-        "http://localhost:8000/api/download",
-        {
-          params: {
-            fileName: file,
-          },
+      const res = await axios({
+        method: "GET",
+        url: "http://localhost:8000/api/download",
+        responseType: "blob",
+        params: {
+          fileName: file,
         },
-        {
-          headers: { responseType: 'arraybuffer', },
-        }
-      );
-
-      // const blob = new Blob([response.data], {
-      //   type: response.headers["content-type"],
+      });
+      // const res = await axios.get("http://localhost:8000/api/download", {
+      //   params: {
+      //     fileName: file,
+      //   },
+      //   headers: { responseType: "blob" },
       // });
-      // const url = window.URL.createObjectURL(
-      //   blob
-      // );
-      // console.log(res.data.file);
-      // const url = window.URL.createObjectURL(new Blob([res.data.file]));
-      // const contentDisposition = res.headers["content-disposition"]; // 파일 이름
-      const anchor = document.createElement('a');
-      console.log(file);
-      // anchor.href = url;
-      anchor.href = `../../../backend/uploads/${file}`
-      anchor.setAttribute('download', file);
-      document.body.appendChild(anchor);
-      anchor.click();
-      // let fileName = "unknown";
       // console.log(res);
-      // if (contentDisposition) {
-      //   const [fileNameMatch] = contentDisposition
-      //     .split(";")
-      //     .filter((str) => str.includes("filename"));
-      //   if (fileNameMatch) [, fileName] = fileNameMatch.split("=");
-      // }
-      // link.href = url;
-      // link.setAttribute("download", `${fileName}`);
-      // link.style.cssText = "display:none";
-      // document.body.appendChild(link);
-      // link.click();
-      // link.remove();
+      console.log(res.headers["content-type"]);
+      console.log(res);
+      // const bytes = new Uint8Array(res.data);
+      let blob = new Blob([res.data], { type: res.headers["content-type"] });
+      // let f = res.headers["content-disposition"];
+      // console.log(f);
+      const url = window.URL.createObjectURL(
+        new Blob([res.data], { type: res.headers["content-type"] })
+      );
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", file);
+      document.body.appendChild(link);
+      link.click();
     },
 
     file(data) {

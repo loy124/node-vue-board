@@ -7,7 +7,9 @@ const { hashPassword, comparePassword } = require("./utils/bcrypt");
 const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
+const { encode } = require("punycode");
 const fs = require("fs").promises;
+
 
 app.use(morgan("dev"));
 app.use(express.json());
@@ -17,7 +19,7 @@ app.use(
   cors({
     origin: true,
     credentials: true, //도메인이 다른경우 서로 쿠키등을 주고받을때 허용해준다고 한다
-    
+    exposedHeaders:['Content-Disposition']
   })
 );
 
@@ -34,6 +36,7 @@ const upload = multer({
     // convert a file name
     filename: (req, file, done) => {
       const ext = path.extname(file.originalname);
+      console.log(file.mimetype);
       const fileName =
         path.basename(file.originalname, ext) + "&&" + Date.now() + ext;
       done(null, fileName);
@@ -142,10 +145,21 @@ app.get("/api/download",  async (req, res) => {
   try {
     console.log(req.body);
     const { fileName } = req.query;
-    console.log(fileName);
-    const file = await fs.readFile(`uploads/${fileName}`);
-    console.log(file);
-    // return res
+    // const {fileName} = req.body.params;
+    // console.log(fileName);
+    const file = await fs.readFile(`${__dirname}/uploads/${fileName}`);
+  
+    // res.setHeader('Content-Length', file.length);
+    // res.write(file, 'binary');
+    // res.end();
+    // console.log(file);
+    // console.log(file.toString());
+  // file.
+  // res.setHeader("Content-Type", "application/octet-stream");
+
+    // res.setHeader("Content-Type", "application/pdf");
+    // return res.download(file);
+    return res.send(file);
   } catch (err) {
     console.log(err);
   }
