@@ -1,7 +1,8 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="dark" variant="primary">
-      <b-navbar-brand href="#"><img class="position-absolute" style="top:-73px;" src="./assets/logo.png"></b-navbar-brand>
+      <!-- <img class="position-absolute" style="top:-73px;" src="./assets/logo.png"> -->
+      <b-navbar-brand href="#">log for me</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>

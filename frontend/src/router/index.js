@@ -5,6 +5,7 @@ import Signup from "../views/Signup.vue";
 import Login from "../views/Login.vue";
 import Main from "../views/Main.vue";
 import Post from "../views/Post.vue";
+import Detail from "../views/Detail.vue";
 
 Vue.use(VueRouter);
 
@@ -13,6 +14,11 @@ const routes = [
     path: "/",
     name: "Main",
     component: Main,
+  },
+  {
+    path: "/detail/:id",
+    name: "Detail",
+    component: Detail,
   },
   {
     path: "/about",
@@ -33,11 +39,11 @@ const routes = [
     name: "Login",
     component: Login,
   },
-  // {
-  //   path: "/main",
-  //   name: "Main",
-  //   component: Main,
-  // },
+  {
+    path: "/main",
+    name: "Main",
+    component: Main,
+  },
   {
     path: "/post",
     name: "Post",

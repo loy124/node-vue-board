@@ -7,9 +7,8 @@ const { hashPassword, comparePassword } = require("./utils/bcrypt");
 const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
-const { encode } = require("punycode");
+const { logger } = require("./utils/winston");
 const fs = require("fs").promises;
-
 
 app.use(morgan("dev"));
 app.use(express.json());
@@ -19,7 +18,7 @@ app.use(
   cors({
     origin: true,
     credentials: true, //도메인이 다른경우 서로 쿠키등을 주고받을때 허용해준다고 한다
-    exposedHeaders:['Content-Disposition']
+    exposedHeaders: ["Content-Disposition"],
   })
 );
 
@@ -53,11 +52,15 @@ sequelize
   .then(() => console.log("db 접속 성공"))
   .catch((err) => console.log(err));
 
-app.get("/api/user", async (req, res) => {});
+app.get("/api/user", async (req, res) => {
+  logger.info("Success");
+  return res.json({ success: true });
+});
 
 app.post("/api/user", async (req, res) => {
   //  CRUD 구현을 해야한다.
   try {
+    // throw new Error("error");
     const { email, password, name } = req.body;
     if (email && password && name) {
       const hashedPassword = await hashPassword(password);
@@ -74,6 +77,7 @@ app.post("/api/user", async (req, res) => {
     }
   } catch (err) {
     console.log(err);
+    logger.error(err);
     return res.json({ signup: false });
   }
 });
@@ -113,6 +117,37 @@ app.get("/api/post", async (req, res) => {
     return res.json({ postList });
   } catch (error) {
     console.log(error);
+    logger.error(error);
+  }
+});
+
+app.get("/api/post/:id", async (req, res) => {
+  try {
+    // throw new Error("error");
+    console.log(req.params);
+    const { id } = req.params;
+    const { dataValues } = await Post.findOne({
+      where: {
+        id: id,
+      },
+    });
+    console.log(dataValues);
+    // if 업로드 종류가 json 일때만 해당 로직을 실행한다.
+    // console.log(dataValues.file);
+    if (dataValues.file) {
+      if (dataValues.file.split(".").reverse()[0] === "txt") {
+        const log = await fs.readFile(
+          `${__dirname}/uploads/${dataValues.file}`
+        );
+        console.log(log.toString());
+        return res.json({ post: dataValues, log: log.toString().trim() });
+      }
+    }
+
+    return res.json({ post: dataValues });
+  } catch (error) {
+    console.log(error);
+    logger.error(error);
   }
 });
 
@@ -134,6 +169,7 @@ app.post("/api/post", upload.single("file"), async (req, res) => {
     return res.json({ hello: "hello" });
   } catch (error) {
     console.log(error);
+    logger.error(error);
   }
 });
 
@@ -141,27 +177,28 @@ app.patch("/api/post", (req, res) => {});
 
 app.delete("/api/post", (req, res) => {});
 
-app.get("/api/download",  async (req, res) => {
+app.get("/api/download", async (req, res) => {
   try {
     console.log(req.body);
     const { fileName } = req.query;
     // const {fileName} = req.body.params;
     // console.log(fileName);
     const file = await fs.readFile(`${__dirname}/uploads/${fileName}`);
-  
+
     // res.setHeader('Content-Length', file.length);
     // res.write(file, 'binary');
     // res.end();
     // console.log(file);
     // console.log(file.toString());
-  // file.
-  // res.setHeader("Content-Type", "application/octet-stream");
+    // file.
+    // res.setHeader("Content-Type", "application/octet-stream");
 
     // res.setHeader("Content-Type", "application/pdf");
     // return res.download(file);
     return res.send(file);
   } catch (err) {
     console.log(err);
+    logger.error(err);
   }
 });
 
