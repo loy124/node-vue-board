@@ -139,8 +139,10 @@ app.get("/api/post/:id", async (req, res) => {
         const log = await fs.readFile(
           `${__dirname}/uploads/${dataValues.file}`
         );
+       if(log){
         console.log(log.toString());
         return res.json({ post: dataValues, log: log.toString().trim() });
+       }
       }
     }
 
@@ -148,6 +150,7 @@ app.get("/api/post/:id", async (req, res) => {
   } catch (error) {
     console.log(error);
     logger.error(error);
+     return res.json({ post: false });
   }
 });
 

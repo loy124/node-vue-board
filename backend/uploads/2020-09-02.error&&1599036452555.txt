@@ -1,6 +1,6 @@
-2020-09-02 14:51:37 error: error&&&&
-2020-09-02 14:51:46 error: error&&&&
-2020-09-02 14:52:10 error: error&&&&
+2020-09-02 14:51:37__error__error&&&&
+2020-09-02 14:51:46__error__error&&&&
+2020-09-02 14:52:10__error__error&&&&
 2020-09-02 17:38:59__error__ENOENT: no such file or directory, open 'C:\Users\dhsdb\OneDrive\바탕 화면\study\board\backend\uploads\unknown&&1598516110837.txt'&&&&
 2020-09-02 17:39:46__error__ENOENT: no such file or directory, open 'C:\Users\dhsdb\OneDrive\바탕 화면\study\board\backend\uploads\unknown&&1598516110837.txt'&&&&
 2020-09-02 17:40:08__error__ENOENT: no such file or directory, open 'C:\Users\dhsdb\OneDrive\바탕 화면\study\board\backend\uploads\unknown&&1598516110837.txt'&&&&

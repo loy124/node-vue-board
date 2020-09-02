@@ -1,11 +1,12 @@
 <template>
-  <div>
-    <div class="w-50 ml-auto mr-auto mt-5 shadow p-3">
+  <div >
+    <div v-if="post" class="w-50 ml-auto mr-auto mt-5 shadow p-3">
       <div class="h1 text-center ">{{ post.title }}</div>
       <div>
         <!-- textarea -->
-        <div class="mt-2 text-right">{{ date }}</div>
-        <div v-if="post.file"
+        <div v-if="post.updatedAt" class="mt-2 text-right">{{ date }}</div>
+        <div
+          v-if="post.file"
           class="download mt-3 text-right text-primary"
           @click="download(post.file)"
         >
@@ -28,6 +29,7 @@
         </div>
       </div>
     </div>
+    <div v-else>정상적으로 게시글을 나타낼 수 없습니다.</div>
   </div>
 </template>
 
@@ -53,40 +55,41 @@ export default {
     console.log(id);
     const { data } = await axios.get(`http://localhost:8000/api/post/${id}`);
     console.log(data);
-    console.log(data.log.split("&&&&"));
+    // console.log(data.log.split("&&&&"));
     this.post = data.post;
 
-    const newArr = data.log.split("&&&&").reduce((acc, cur) => {
-      if (cur) {
-        // console.log(acc);
-        // console.log(cur);
-        acc.push(cur.trim().split("__"));
-      }
-      return acc;
-    }, []);
+    if (data.log) {
+      const newArr = data.log.split("&&&&").reduce((acc, cur) => {
+        if (cur) {
+          // console.log(acc);
+          // console.log(cur);
+          acc.push(cur.trim().split("__"));
+        }
+        return acc;
+      }, []);
+
+      this.arr = newArr;
+
+      const datasets = [
+        {
+          label: "에러 발생 시각",
+          backgroundColor: "#f87979",
+          data: newArr.map((li) => new Date(li[0]).getHours()),
+        },
+      ];
+
+      // console.log(datasets);
+      this.chartData = datasets;
+      this.fillData();
+    }
 
     // console.log(newArr);
-    this.arr = newArr;
-
-    const datasets = [
-      {
-        label: "에러 발생 시각",
-        backgroundColor: "#f87979",
-        data: newArr.map((li) => new Date(li[0]).getHours()),
-      },
-    ];
-
-    // console.log(datasets);
-    this.chartData = datasets;
-    this.fillData();
   },
   computed: {
     file() {
-    
-        return `${this.post.file.split("&&")[0]}.${
-          this.post.file.split("&&")[1].split(".")[1]
-        }`;
-      
+      return `${this.post.file.split("&&")[0]}.${
+        this.post.file.split("&&")[1].split(".")[1]
+      }`;
     },
     date() {
       const day = new Date(this.post.updatedAt);
@@ -124,9 +127,9 @@ export default {
         // ],
       };
     },
-    getRandomInt() {
-      return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
-    },
+    // getRandomInt() {
+    //   return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+    // },
     async download(file) {
       console.log(file);
       // const formData = new FormData();
