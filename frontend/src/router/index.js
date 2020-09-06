@@ -6,7 +6,7 @@ import Login from "../views/Login.vue";
 import Main from "../views/Main.vue";
 import Post from "../views/Post.vue";
 import Detail from "../views/Detail.vue";
-
+import Weather from "../views/Weather.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -49,6 +49,11 @@ const routes = [
     name: "Post",
     component: Post,
   },
+  {
+    path: "/weather",
+    name: "Weather",
+    component: Weather,
+  }
 
 ];
 

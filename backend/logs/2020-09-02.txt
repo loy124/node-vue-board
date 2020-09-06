@@ -8,11 +8,14 @@
 2020-09-02 17:42:25__error__ENOENT: no such file or directory, open 'C:\Users\dhsdb\OneDrive\바탕 화면\study\board\backend\uploads\unknown&&1598516110837.txt'&&&&
 2020-09-02 17:43:08__error__ENOENT: no such file or directory, open 'C:\Users\dhsdb\OneDrive\바탕 화면\study\board\backend\uploads\unknown&&1598516110837.txt'&&&&
 2020-09-02 17:43:24__error__ENOENT: no such file or directory, open 'C:\Users\dhsdb\OneDrive\바탕 화면\study\board\backend\uploads\unknown&&1598516110837.txt'&&&&
-2020-09-02 17:44:00__error__ENOENT: no such file or directory, open 'C:\Users\dhsdb\OneDrive\바탕 화면\study\board\backend\uploads\unknown&&1598516110837.txt'&&&&
-2020-09-02 17:44:01__error__ENOENT: no such file or directory, open 'C:\Users\dhsdb\OneDrive\바탕 화면\study\board\backend\uploads\unknown&&1598516110837.txt'&&&&
-2020-09-02 17:44:24__error__ENOENT: no such file or directory, open 'C:\Users\dhsdb\OneDrive\바탕 화면\study\board\backend\uploads\unknown&&1598516110837.txt'&&&&
-2020-09-02 17:44:26__error__ENOENT: no such file or directory, open 'C:\Users\dhsdb\OneDrive\바탕 화면\study\board\backend\uploads\unknown&&1598516110837.txt'&&&&
-2020-09-02 17:44:40__error__ENOENT: no such file or directory, open 'C:\Users\dhsdb\OneDrive\바탕 화면\study\board\backend\uploads\unknown&&1598516110837.txt'&&&&
+2020-09-02 17:44:00__OENT: no such file or directory, open 'C:\Users\dhsdb\OneDrive\바탕 화면\study\board\backend\uploads\unknown&&1598516110837.txt'&&&&
 2020-09-02 17:44:46__error__ENOENT: no such file or directory, open 'C:\Users\dhsdb\OneDrive\바탕 화면\study\board\backend\uploads\unknown&&1598516110837.txt'&&&&
 2020-09-02 17:44:48__error__ENOENT: no such file or directory, open 'C:\Users\dhsdb\OneDrive\바탕 화면\study\board\backend\uploads\unknown&&1598516110837.txt'&&&&
 2020-09-02 17:45:21__error__ENOENT: no such file or directory, open 'C:\Users\dhsdb\OneDrive\바탕 화면\study\board\backend\uploads\unknown&&1598516110837.txt'&&&&
+2020-09-02 18:08:13__error__ENOENT: no such file or directory, open 'C:\Users\dhsdb\OneDrive\바탕 화면\study\board\backend\uploads\[object Object] (1)&&1598516221689.txt'&&&&
+2020-09-02 18:30:05__error__ENOENT: no such file or directory, open 'C:\Users\dhsdb\OneDrive\바탕 화면\study\board\backend\uploads\robots&&1598492250360 (8)&&1598588084143.txt'&&&&
+error__ENOENT: no such file or directory, open 'C:\Users\dhsdb\OneDrive\바탕 화면\study\board\backend\uploads\unknown&&1598516110837.txt'&&&&
+2020-09-02 17:44:01__error__ENOENT: no such file or directory, open 'C:\Users\dhsdb\OneDrive\바탕 화면\study\board\backend\uploads\unknown&&1598516110837.txt'&&&&
+2020-09-02 17:44:24__error__ENOENT: no such file or directory, open 'C:\Users\dhsdb\OneDrive\바탕 화면\study\board\backend\uploads\unknown&&1598516110837.txt'&&&&
+2020-09-02 17:44:26__error__ENOENT: no such file or directory, open 'C:\Users\dhsdb\OneDrive\바탕 화면\study\board\backend\uploads\unknown&&1598516110837.txt'&&&&
+2020-09-02 17:44:40__error__EN

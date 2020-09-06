@@ -9,6 +9,16 @@
             "date": 1599024754879,
             "name": "logs\\2020-09-02.txt",
             "hash": "5b48954f5dc17f0d1f8eccf05aa6458a"
+        },
+        {
+            "date": 1599185435160,
+            "name": "logs\\2020-09-04.txt",
+            "hash": "1d71a04a8bf685bf82a10b4be1676c01"
+        },
+        {
+            "date": 1599354916249,
+            "name": "logs\\2020-09-06.txt",
+            "hash": "55b43229a1ee380a7c490833f5f4f6af"
         }
     ]
 }

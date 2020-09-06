@@ -7,7 +7,7 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item v-if="isLoggedIn" @click="$router.push('/post')">글쓰기 </b-nav-item>
-          
+          <b-nav-item  @click="$router.push('/weather')">오늘의 날씨 </b-nav-item>
         </b-navbar-nav>
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
