@@ -19,6 +19,11 @@
             "date": 1599354916251,
             "name": "logs\\error\\2020-09-06.error.txt",
             "hash": "46fdf24d3184e393bdccc9481c983d84"
+        },
+        {
+            "date": 1599438294198,
+            "name": "logs\\error\\2020-09-07.error.txt",
+            "hash": "b76578324fb35a21dd403baf2aa63595"
         }
     ]
 }
